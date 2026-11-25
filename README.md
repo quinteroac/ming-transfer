@@ -18,7 +18,7 @@ python ming_transfer.py --finetune <fine-tune> --base zimage|turbo --rank 64 --o
 - `--keys`: only block keys matching a regex, for a quick test (`'^layers\.15\.'`) or a partial transfer.
 - `--workers`: parallel downloads (default 4).
 
-At the end it prints how large the change is and how much of it the rank keeps. A small, low-rank change (a light fine-tune) keeps most of it at rank 64; a full fine-tune can need rank 0.
+At the end it prints how large the change is and how much of it the rank keeps. A small, low-rank change (a light fine-tune) keeps most of it at rank 64; a full fine-tune can need rank 0. Above 25 % it warns: a change that large replaces Ming's blocks and gives noise at strength 1.
 
 Load the output with **LoraLoaderModelOnly** on the Ming-Image model.
 
@@ -28,6 +28,7 @@ Load the output with **LoraLoaderModelOnly** on the Ming-Image model.
 |---|---|---|---|---|
 | BEYOND REALITY 3.0 (`Nurburgring/BEYOND_REALITY_Z_IMAGE`) | turbo | ~0.4–2 % | 83 % | Film look at strength ~2; edits hold up to 2, at 4 the image washes out. Rank 64 ≈ full difference. |
 | Z-Anime base (`SeeSee21/Z-Anime`) | zimage | 6–17 % | not measured | Full difference (rank 0): anime style at strength 1 and edits still work. Text to image wants CFG 3 at strength 1 to lose a grain; edits keep a paper-like skin texture there, so use ~0.5. |
+| Eason ZimageTurbo realistic V3.1 | turbo | 60–70 % on FFN and adaLN, attention unchanged | 90 % | Noise at strength 1: the change is as large as Turbo's own distance from base. |
 
 Moving Ming's blocks back towards Z-Image base breaks it at a quarter of the way, so the method relies on the fine-tune's change going in another direction than Ming's own, which both fine-tunes above did.
 

@@ -175,7 +175,10 @@ def main():
 
     save_file(out, args.out)
     print(f"Saved {args.out} ({os.path.getsize(args.out) / 1e9:.2f} GB).")
-    print(f"Change over the base: {(change / weight) ** 0.5:.1%} of the block weights.")
+    ratio = (change / weight) ** 0.5
+    print(f"Change over the base: {ratio:.1%} of the block weights.")
+    if ratio > 0.25:
+        print("Warning: this is a heavy fine-tune (or --base is not the model it was trained from). A change this large replaces Ming's blocks and gives noise at strength 1; try strength 0.05-0.15, or use a lighter fine-tune.")
     if total:
         print(f"Rank {args.rank} keeps {kept / total:.0%} of the change's energy.")
 
