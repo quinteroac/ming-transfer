@@ -28,7 +28,10 @@ QKV = ("to_q", "to_k", "to_v")
 
 def hf_url(spec):
     """'owner/repo/path/file.safetensors' -> resolve URL; URLs and local paths pass through."""
-    if spec.startswith(("http://", "https://")) or os.path.exists(spec):
+    if spec.startswith(("http://", "https://")):
+        # A /blob/ link is the web page; /resolve/ is the file.
+        return re.sub(r"^(https://huggingface\.co/[^/]+/[^/]+)/blob/", r"\1/resolve/", spec)
+    if os.path.exists(spec):
         return spec
     owner, repo, path = spec.split("/", 2)
     return f"https://huggingface.co/{owner}/{repo}/resolve/main/{urllib.parse.quote(path)}"
