@@ -37,3 +37,7 @@ Moving Ming's blocks back towards Z-Image base breaks it at a quarter of the way
 python ming_transfer.py --finetune "Nurburgring/BEYOND_REALITY_Z_IMAGE/BEYOND REALITY SUPER Z IMAGE 3.0 淡妆浓抹 BF16.safetensors" --base turbo --rank 64 --out ComfyUI/models/loras/ming/beyond_reality3_ming_r64.safetensors
 python ming_transfer.py --finetune SeeSee21/Z-Anime/diffusion_models/z-anime-base-bf16.safetensors --base zimage --rank 0 --out ComfyUI/models/loras/ming/zanime_ming_diff.safetensors
 ```
+
+## License
+
+MIT.
